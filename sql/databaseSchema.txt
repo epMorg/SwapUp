@@ -1,0 +1,67 @@
+table arc:
+CREATE TABLE arc
+(
+arc_ID int NOT NULL AUTO_INCREMENT,
+node VARCHAR(25) NOT NULL,
+pointed_at VARCHAR(25) NOT NULL,
+arc VARCHAR(50),
+date DATETIME,
+PRIMARY KEY (arc_ID),
+FOREIGN KEY (node) REFERENCES user(username)
+)
+table bid:
+CREATE TABLE bid
+(
+bid_ID int NOT NULL AUTO_INCREMENT,
+bid_Text VARCHAR(1000) NULL,
+date DATETIME DEFAULT CURRENT_TIMESTAMP(),
+listing_ID int,
+userName VARCHAR(25),
+PRIMARY KEY (bid_ID),
+FOREIGN KEY (listing_ID) REFERENCES listing(listing_ID),
+FOREIGN KEY (userName) REFERENCES user(username)
+)
+table LISTING:
+CREATE TABLE listing
+(
+listing_ID int NOT NULL AUTO_INCREMENT,
+listing_description VARCHAR(1000) NOT NULL,
+activity VARCHAR(10) NOT NULL DEFAULT 'active',
+offerer_username VARCHAR(40) NOT NULL,
+bidder_username VARCHAR(40) NOT NULL DEFAULT "",
+listing_keywords VARCHAR(500) NOT NULL DEFAULT "",
+PRIMARY KEY (listing_ID),
+FOREIGN KEY (offerer_username) REFERENCES user(username),
+)
+table listingFeedback:
+CREATE TABLE listingFeedback
+(
+feedback_ID int NOT NULL AUTO_INCREMENT,
+feedback_type VARCHAR(40) (either OfToBdFeedback or BdToOfFeedback),
+feedback_value VARCHAR(40) (positive, negative, neutral),
+feedback_comment VARCHAR(1000),
+listing_ID int,
+date DATETIME,
+username VARCHAR(25),
+PRIMARY KEY (feedback_ID),
+FOREIGN KEY (listing_ID) REFERENCES listing(listing_ID),
+FOREIGN KEY (username) REFERENCES user(user_ID)
+)
+table user;
+CREATE table user
+(
+user_ID (PK) int(10) unsigned primary key not null,
+username varchar(25) NOT NULL,
+passwd varchar(25) NOT NULL,
+email varchar(40) NOT NULL,
+date_of_join datetime,
+gender varchar(10) NOT NULL,
+profile_blurb varchar(1000) NOT NULL DEFAULT an empty string (no need to
+insert values),
+approval_points int(100) NOT NULL DEFAULT 0 (no need to insert values),
+social_role varchar(25),
+user_photo mediumblob, null,
+positive_AP int(100) NOT NULL DEFAULT 0,
+negative_AP int(100) NOT NULL DEFAULT 0,
+neutral_AP int(100) NOT NULL DEFAULT 0,
+UNIQUE (username)
