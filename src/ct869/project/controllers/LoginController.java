@@ -144,18 +144,15 @@ public class LoginController extends HttpServlet {
 			username = (String) session.getAttribute("username");
 				if (username == null) {
 					request.getRequestDispatcher("sessionExpired.html").forward(request, response);
-			} else {
-				System.out.println("Session not expired");
-				
-			}
-			
+					} 
+				else {
+				System.out.println("Session not expired");			
+			}			
 		}
 			catch (Throwable e) {
 				System.out.println(e);
-			}
-		
-		}
-			
+			}		
+		}			
 	}	
 
 
